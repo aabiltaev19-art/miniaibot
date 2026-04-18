@@ -1,46 +1,47 @@
-const messages = document.getElementById("messages");
-const input = document.getElementById("input");
-
-function add(text, type) {
-  const div = document.createElement("div");
-  div.className = type;
-  div.innerHTML = text;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function send() {
-  const text = input.value.trim();
-  if (!text) return;
-
-  add(text, "user");
-
-  setTimeout(() => {
-    add(generateResponse(text), "bot");
-  }, 600);
-
-  input.value = "";
-}
-
 function generateResponse(text) {
   const t = text.toLowerCase();
 
-  if (t.includes("привет")) return "Привет 👋 Чем могу помочь?";
-  if (t.includes("как дела")) return "У меня всё отлично 😄 А у тебя?";
-  if (t.includes("кто ты")) return "Я MiniAI — простой чат-бот, который отвечает на вопросы.";
-  
-  if (t.includes("html")) return "HTML — это язык разметки для создания сайтов.";
-  if (t.includes("css")) return "CSS отвечает за внешний вид сайта.";
-  if (t.includes("js") || t.includes("javascript")) return "JavaScript делает сайт интерактивным.";
+  // Общение
+  if (t.includes("привет") || t.includes("здорова"))
+    return "Привет 👋 Чем могу помочь?";
 
-  if (t.includes("совет")) return "Мой совет: учись регулярно и практикуйся каждый день 💡";
-  if (t.includes("любовь")) return "Любовь — это когда хочется заботиться о человеке ❤️";
+  if (t.includes("как дела"))
+    return "Отлично 😄 Готов отвечать на вопросы!";
 
-  if (t.includes("работа")) return "Важно выбрать работу, которая тебе нравится и развивает тебя.";
-  
-  return "Интересный вопрос 🤔 Попробуй переформулировать или уточнить, и я постараюсь помочь.";
+  if (t.includes("кто ты"))
+    return "Я MiniAI — простой чат-бот, который пытается отвечать на разные вопросы.";
+
+  // Люди
+  if (t.includes("роналду") || t.includes("криштиану"))
+    return "Криштиану Роналду — один из лучших футболистов в мире ⚽ Он играл за Реал Мадрид, Манчестер Юнайтед и сборную Португалии.";
+
+  // Планеты
+  if (t.includes("земля"))
+    return "Земля — это планета Солнечной системы 🌍 Она находится на третьем месте от Солнца.";
+
+  if (t.includes("солнце"))
+    return "Солнце — это звезда, вокруг которой вращаются планеты нашей системы ☀️";
+
+  // Программирование
+  if (t.includes("html"))
+    return "HTML — это язык разметки для создания сайтов.";
+
+  if (t.includes("css"))
+    return "CSS отвечает за внешний вид сайта.";
+
+  if (t.includes("javascript") || t.includes("js"))
+    return "JavaScript делает сайты интерактивными.";
+
+  if (t.includes("python"))
+    return "Python — популярный язык программирования для начинающих и не только.";
+
+  // Общие вопросы
+  if (t.includes("что умеешь"))
+    return "Я могу отвечать на простые вопросы, помогать с учебой и поддерживать диалог 😊";
+
+  if (t.includes("совет"))
+    return "Учись понемногу, но каждый день — это самый лучший способ прокачаться 💡";
+
+  // fallback (умнее звучит)
+  return "🤔 Я пока не знаю точный ответ, но могу попытаться помочь, если ты уточнишь вопрос.";
 }
-
-input.addEventListener("keypress", function(e) {
-  if (e.key === "Enter") send();
-});
